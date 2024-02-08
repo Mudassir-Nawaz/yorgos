@@ -44,8 +44,10 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Add x86_64-linux platform to Gemfile.lock
         run: bundle lock --add-platform x86_64-linux
-      - name: Bundle install with specified platform
-        run: bundle install --platform=x86_64-linux
+      - name: Set platform for Bundler
+        run: bundle platform --local x86_64-linux
+      - name: Bundle install
+        run: bundle install
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
